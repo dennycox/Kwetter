@@ -9,10 +9,10 @@ function Start() {
                 <h2>Kwetter</h2>
                 <h3>What's happening</h3>
                 <Link to={"/register"}>
-                    <Button variant="primary">C lick here to register</Button>
+                    <Button variant="primary">Register</Button>
                 </Link>
                 <Link to={"/login"}>
-                    <Button variant="primary">Click here to login</Button>
+                    <Button variant="primary">Login</Button>
                 </Link>
             </Container>
         </div>

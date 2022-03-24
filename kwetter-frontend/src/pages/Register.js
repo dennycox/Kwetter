@@ -12,10 +12,13 @@ function Register() {
         name: "",
         email: "",
         password: "",
+        bio: "",
+        location: "",
+        website: "",
       });
       const [message, setMessage] = useState("");
       const [messagePassword, setMessagePassword] = useState([]);
-      const [messagename, setMessagename] = useState([]);
+      const [messageName, setMessagename] = useState([]);
       const [messageEmail, setMessageEmail] = useState([]);
       const [confirmPassword, setConfirmPassword] = useState("");
     
@@ -67,6 +70,12 @@ function Register() {
           isValid = false;
         }
 
+        //check if passwords match
+        if (confirmPassword !== register.password) {
+        passwordErrorList.push("Passwords don't match");
+        isValid = false;
+        }
+
         //check if password is between 8 and 200 characters
         if (
           register.password.length < 8 ||
@@ -98,7 +107,7 @@ function Register() {
           return;
         }
     
-        AuthenticationService.Register(register)
+        AuthenticationService.register(register)
           .then((res) => {
             setMessage("Account created");
             Router.push("/home");
@@ -114,31 +123,61 @@ function Register() {
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" onChange={handleChange} required />
+                    <Form.Control type="text" onChange={handleChange} name="name" required />
                 </Form.Group>
+                <div>
+                    {messageName.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
+                  </div>
                 <Form.Group>
                     <Form.Label>E-mail address</Form.Label>
-                    <Form.Control type="email" onChange={handleChange} required />
+                    <Form.Control type="email" onChange={handleChange} name="email" required />
                 </Form.Group>
+                <div>
+                    {messageEmail.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
+                  </div>
                 <Form.Group>
                     <Form.Label>Bio</Form.Label>
-                    <Form.Control as="textarea" rows={3} onChange={handleChange} />                
+                    <Form.Control as="textarea" rows={3} onChange={handleChange} name="bio" />                
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Location</Form.Label>
-                    <Form.Control type="text" onChange={handleChange} />
+                    <Form.Control type="text" onChange={handleChange} name="location" />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Website</Form.Label>
-                    <Form.Control type="text" onChange={handleChange} />
+                    <Form.Control type="text" onChange={handleChange} name="website" />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={handleChange} required />
+                    <Form.Control type="password" onChange={handleChange} name="password" required />
                 </Form.Group>
+                <div>
+                    {messagePassword.map((message, index) => (
+                      <div key={index}>
+                        <small className="help-block text-danger">
+                          {message}
+                        </small>{" "}
+                        <br></br>
+                      </div>
+                    ))}
+                  </div>
                 <Form.Group>
                     <Form.Label>Confirm password</Form.Label>
-                    <Form.Control type="password" onChange={handleConfirmPasswordChange} required />
+                    <Form.Control type="password" onChange={handleConfirmPasswordChange} name="confirmPassword" required />
                 </Form.Group>
                 <Form.Group>
                     <Button type="submit">Create account</Button>
