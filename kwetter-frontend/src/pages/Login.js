@@ -3,9 +3,6 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AuthenticationService from "../services/AuthenticationService";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    BrowserRouter as Router
-  } from 'react-router-dom';
 
 function Login() {
     const [login, setLogin] = useState({ email: "", password: "" });
@@ -20,7 +17,6 @@ function Login() {
 
     AuthenticationService.login(login)
       .then((res) => {
-        Router.push("/");
         localStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("UserId", res.data.id);
         setMessage("Login successful");

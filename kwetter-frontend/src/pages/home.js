@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Banner from '../components/Banner'
 
 function Home() {
     return (

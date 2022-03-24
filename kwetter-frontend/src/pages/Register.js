@@ -3,9 +3,6 @@ import { Button, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthenticationService from "../services/AuthenticationService";
-import {
-    BrowserRouter as Router
-  } from 'react-router-dom';
 
 function Register() {
     const [register, setRegister] = useState({
@@ -110,7 +107,6 @@ function Register() {
         AuthenticationService.register(register)
           .then((res) => {
             setMessage("Account created");
-            Router.push("/home");
           })
           .catch((error) => {
             setMessage("Something went wrong, try again in a few minutes ...");
