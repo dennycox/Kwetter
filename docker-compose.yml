@@ -1,0 +1,30 @@
+version: '1'
+services:
+  #Authentication Service
+  thd:
+    image: dennycox/authentication-service
+    container_name: authentication-service
+    ports:
+    - ${THD_PORT}:5001
+    networks:
+    - network-name
+
+    environment:
+      OFFLINE_STATUS: 0
+      ONLINE_STATUS: 1
+      HAS_ERRORS_STATUS: 2
+      SERVER_HOST: ${THS_HOST}
+      SERVER_PORT: ${THS_PORT}
+
+  #Kwetter Frontend
+  ths:
+    image: dennycox/kwetter-frontend
+    container_name: kwetter-frontend
+    ports:
+      - ${THS_PORT}:6060
+    networks:
+      - network-name
+
+networks:
+  network-name:
+    name: Kwetter
