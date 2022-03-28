@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 6060
 
-ROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["AuthenticationService/AuthenticationService.csproj", "AuthenticationService/"]
 RUN dotnet restore "AuthenticationService/AuthenticationService.csproj"
