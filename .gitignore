@@ -87,3 +87,5 @@ fabric.properties
 # Enable before deployment
 #/src/infrastructure/compose/**.env
 #/src/infrastructure/compose/.env
+
+.DS_Store
