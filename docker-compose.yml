@@ -4,7 +4,7 @@ services:
   as:
     image: dennycox/authentication-service
     container_name: authentication-service
-    env_file: .thd.env
+    env_file: .kf.env
     ports:
       - ${AS_PORT}:80
     networks:
