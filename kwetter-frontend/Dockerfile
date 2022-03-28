@@ -5,8 +5,7 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package*.json .
-COPY app.js .
-COPY . /usr/src/app
+COPY ./ /app/
 
 RUN npm install
 RUN npm run build
