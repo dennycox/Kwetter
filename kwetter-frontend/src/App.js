@@ -9,7 +9,6 @@ import {
 import Start from './pages/Start';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route exact path="/" component={Start} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/home" component={Home} />
       </Router>
     </div>
   );
