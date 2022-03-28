@@ -12,7 +12,7 @@ WORKDIR /Kwetter
 COPY ["authentication-service.csproj", "."]
 RUN dotnet restore "./authentication-service.csproj"
 COPY . .
-WORKDIR "//."
+WORKDIR "/Kwetter/."
 RUN dotnet build "authentication-service.csproj" -c Release -o /app/build
 
 FROM build AS publish
