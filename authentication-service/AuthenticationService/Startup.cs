@@ -16,6 +16,7 @@ namespace AuthenticationService
     {
         private readonly IConfiguration _config;
         private readonly IWebHostEnvironment _hosting;
+        private readonly string AllowOrigins = "_AllowOrigins";
         public Startup(IConfiguration config, IWebHostEnvironment hosting)
         {
             _config = config;
@@ -44,15 +45,15 @@ namespace AuthenticationService
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AllowAll",
-                                  builder =>
-                                  {
-                                      builder.AllowAnyOrigin()
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod();
-                                  });
+                options.AddPolicy(name: AllowOrigins,
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowed(origin => true)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
             });
-
 
         }
 
@@ -68,7 +69,7 @@ namespace AuthenticationService
             app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseCors();
+            app.UseCors(AllowOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
