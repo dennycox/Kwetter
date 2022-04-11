@@ -46,15 +46,14 @@ namespace AuthenticationService
             services.AddCors(options =>
             {
                 options.AddPolicy(name: AllowOrigins,
-                                  builder =>
-                                  {
-                                      builder.SetIsOriginAllowed(origin => true)
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .AllowCredentials();
-                                  });
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowed(origin => true)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
             });
-
 
         }
 

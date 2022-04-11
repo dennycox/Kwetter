@@ -1,9 +1,9 @@
 import axios from "axios";
-
-const url = process.env.NEXT_PUBLIC_API_URL || "https://localhost:5001";
+import url from '../src/baseUrl';
 
 const httpdefault = () => {
   const https = require("https");
+  console.log(url)
   return axios.create({
     baseURL: url + "/api",
     httpsAgent: new https.Agent({
