@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AuthenticationService.Data;
 using AuthenticationService.Dtos;
+using AuthenticationService.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace AuthenticationService.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IPublisher _publisher;
 
         public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
@@ -108,6 +110,8 @@ namespace AuthenticationService.Controllers
                 Location = registerDto.Location,
                 Website = registerDto.Website,
             };
+
+            _publisher.Publish(JsonConvert.SerializeObject(profileDto), "account.new", null);
 
             return new UserDto
             {
