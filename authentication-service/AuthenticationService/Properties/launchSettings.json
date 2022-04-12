@@ -28,9 +28,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "ConnectionStrings": {
-        "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=authentication-service-identity-test-db;Trusted_Connection=True;MultipleActiveResultSets=true"
-      },
       "Docker": {
         "commandName": "Docker",
         "launchBrowser": true,

@@ -21,12 +21,13 @@ namespace AuthenticationService.Controllers
         private readonly IMapper _mapper;
         private readonly IPublisher _publisher;
 
-        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, IPublisher publisher)
         {
             _mapper = mapper;
             _tokenService = tokenService;
             _signInManager = signInManager;
             _userManager = userManager;
+            _publisher = publisher;
         }
 
 
