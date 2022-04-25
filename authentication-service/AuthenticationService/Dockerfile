@@ -9,10 +9,10 @@ EXPOSE 6060
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["AuthenticationService/AuthenticationService.csproj", "AuthenticationService/"]
-RUN dotnet restore "AuthenticationService/AuthenticationService.csproj"
+COPY ["AuthenticationService.csproj", "."]
+RUN dotnet restore "./AuthenticationService.csproj"
 COPY . .
-WORKDIR "/src/AuthenticationService"
+WORKDIR "/src/."
 RUN dotnet build "AuthenticationService.csproj" -c Release -o /app/build
 
 FROM build AS publish

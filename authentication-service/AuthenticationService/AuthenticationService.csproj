@@ -36,6 +36,7 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Extensions\" />
     <None Remove="Interfaces\" />
+    <None Remove="Messaging\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -43,5 +44,6 @@
     <Folder Include="Dtos\" />
     <Folder Include="Extensions\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Messaging\" />
   </ItemGroup>
 </Project>

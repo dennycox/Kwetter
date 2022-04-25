@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AuthenticationService.Data;
 using Microsoft.EntityFrameworkCore;
+using AuthenticationService.Messaging;
+using AuthenticationService.Interfaces;
+using RabbitMQ.Client;
 
 namespace AuthenticationService
 {
@@ -37,7 +40,20 @@ namespace AuthenticationService
 
             
             services.AddDbContext<AppIdentityDbContext>(x => x.UseInMemoryDatabase(databaseName: "authentication-service-identity-test-db"));
-            
+
+            services.AddHostedService<QueueReaderService>();
+            services.AddSingleton<MessageHandlerRepository>();
+            services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
+            services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
+                    "account_exchange",
+                    ExchangeType.Topic,
+                    30000
+                ));
+            services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
+                    "profile_exchange",
+                    "account_queue",
+                    "profile.*",
+                    ExchangeType.Topic));
 
             services.AddApplicationServices();
             services.AddIdentityServices(_config);
@@ -46,15 +62,14 @@ namespace AuthenticationService
             services.AddCors(options =>
             {
                 options.AddPolicy(name: AllowOrigins,
-                                  builder =>
-                                  {
-                                      builder.SetIsOriginAllowed(origin => true)
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .AllowCredentials();
-                                  });
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowed(origin => true)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
             });
-
 
         }
 
