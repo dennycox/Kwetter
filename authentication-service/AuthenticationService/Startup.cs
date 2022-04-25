@@ -46,7 +46,8 @@ namespace AuthenticationService
             services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
             services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
                     "account_exchange",
-                    ExchangeType.Topic
+                    ExchangeType.Topic,
+                    30000
                 ));
             services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
                     "profile_exchange",

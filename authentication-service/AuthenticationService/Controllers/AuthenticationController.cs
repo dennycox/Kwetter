@@ -112,7 +112,7 @@ namespace AuthenticationService.Controllers
                 Website = registerDto.Website,
             };
 
-            _publisher.Publish(JsonConvert.SerializeObject(profileDto), "account.new", null);
+            _publisher.Publish(JsonConvert.SerializeObject(profileDto), "account.new", null, "30000");
 
             return new UserDto
             {
