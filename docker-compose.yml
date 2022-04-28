@@ -27,6 +27,16 @@ services:
       - 53231:80
     networks:
       - network-name
+  
+  #RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - network-name
 
 networks:
   network-name:
