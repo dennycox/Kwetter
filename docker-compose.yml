@@ -19,6 +19,15 @@ services:
     networks:
       - network-name
 
+  #Profile Service
+  profile-service:
+    build: ./profile-service/ProfileService
+    container_name: profile-service
+    ports:
+      - 53231:80
+    networks:
+      - network-name
+
 networks:
   network-name:
     name: kwetter
