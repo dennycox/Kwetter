@@ -46,7 +46,7 @@ namespace ProfileService
                 x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
 
 
-            services.AddDbContext<AppDbContext>(x => x.UseInMemoryDatabase(databaseName: "profile-service-test-db"));
+            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_config.GetConnectionString("profile-service-test-db")));
 
             services.AddHostedService<QueueReaderService>();
             services.AddSingleton<MessageHandlerRepository>();
