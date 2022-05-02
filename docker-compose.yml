@@ -9,6 +9,18 @@ services:
     networks:
       - network-name
 
+  #SQL Express Authentication
+  sql-express-authentication:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: 1Secure*Password1
+    container_name: sql-express-authentication
+    ports:
+      - 1433:1433
+    networks:
+      - network-name
+
   #Kwetter Frontend
   kwetter-frontend:
     build: ./kwetter-frontend
@@ -28,15 +40,15 @@ services:
     networks:
       - network-name
   
-  #SQL Express
-  sqlexpress:
+  #SQL Express Profile
+  sql-express-profile:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
       ACCEPT_EULA: Y
       SA_PASSWORD: 1Secure*Password1
-    container_name: sqlexpress
+    container_name: sql-express-profile
     ports:
-      - 1433:1433
+      - 1434:1434
     networks:
       - network-name
   

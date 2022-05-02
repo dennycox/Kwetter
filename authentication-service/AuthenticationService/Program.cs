@@ -25,9 +25,9 @@ namespace AuthenticationService
                 try
                 {
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+                    var identityContext = services.GetRequiredService<ApplicationDbContext>();
                     await identityContext.Database.MigrateAsync();
-                    await InMemoryIdentityDataGenerator.SeedUsersAsync(services);
+                    //await InMemoryIdentityDataGenerator.SeedUsersAsync(services);
                 }
                 catch (Exception ex)
                 {

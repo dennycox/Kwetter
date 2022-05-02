@@ -42,11 +42,9 @@ namespace ProfileService
         {
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContext<AppDbContext>(x =>
-                x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
 
-
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_config.GetConnectionString("profile-service-test-db")));
 
             services.AddHostedService<QueueReaderService>();
             services.AddSingleton<MessageHandlerRepository>();

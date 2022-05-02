@@ -35,29 +35,27 @@ namespace AuthenticationService
         {
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContext<AppDbContext>(x =>
-                x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
-
             
-            services.AddDbContext<AppIdentityDbContext>(x => x.UseInMemoryDatabase(databaseName: "authentication-service-identity-test-db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+
+            services.AddApplicationServices();
+            services.AddIdentityServices(_config);
 
             services.AddHostedService<QueueReaderService>();
             services.AddSingleton<MessageHandlerRepository>();
             services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
             services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
-                    "account_exchange",
-                    ExchangeType.Topic,
-                    30000
-                ));
+                   "account_exchange",
+                   ExchangeType.Topic,
+                   30000
+               ));
             services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
-                    "profile_exchange",
-                    "account_queue",
-                    "profile.*",
-                    ExchangeType.Topic));
+                   "profile_exchange",
+                   "account_queue",
+                   "profile.*",
+                   ExchangeType.Topic));
 
-            services.AddApplicationServices();
-            services.AddIdentityServices(_config);
-            services.AddSwaggerDocumentation();
+                    services.AddSwaggerDocumentation();
 
             services.AddCors(options =>
             {
