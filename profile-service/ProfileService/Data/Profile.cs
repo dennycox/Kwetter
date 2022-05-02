@@ -20,8 +20,7 @@ namespace ProfileService.Data
             Website = website;
         }
 
-        public Profile(Guid id, string userId, string profilePictureUrl, string profileName, string bio, string location, string website,
-                List<Profile> followers, List<Profile> followings)
+        public Profile(Guid id, string userId, string profilePictureUrl, string profileName, string bio, string location, string website)
         {
             Id = id;
             UserId = userId;

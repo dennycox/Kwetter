@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AuthenticationService.Data
 {
-    public class Profile
+    public class Profile : BaseEntity
     {
         public Profile()
         {
