@@ -1,5 +1,14 @@
 version: '3'
 services:
+  #API Gateway
+  api-gateway:
+    build: ./api-gateway/ApiGateway
+    container_name: api-gateway
+    ports:
+      - 53695:80
+    networks:
+      - network-name
+
   #Authentication Service
   authentication-service:
     build: ./authentication-service/AuthenticationService
