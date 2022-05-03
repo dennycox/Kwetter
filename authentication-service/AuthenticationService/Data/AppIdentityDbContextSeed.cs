@@ -34,7 +34,7 @@ namespace AuthenticationService.Data
             }
             catch (Exception ex)
             {
-                var logger = loggerFactory.CreateLogger<AppIdentityDbContext>();
+                var logger = loggerFactory.CreateLogger<ApplicationDbContext>();
                 logger.LogError(ex.Message);
             }
         }

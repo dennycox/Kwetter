@@ -4,16 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using AuthenticationService.Data;
+using ProfileService.Data;
 using Microsoft.EntityFrameworkCore;
-using AuthenticationService.Messaging;
-using AuthenticationService.Interfaces;
+using ProfileService.Extensions;
+using ProfileService.Messaging;
+using ProfileService.Interfaces;
 using RabbitMQ.Client;
 
-namespace AuthenticationService
+namespace ProfileService
 {
     public class Startup
     {
@@ -35,27 +42,26 @@ namespace AuthenticationService
         {
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
 
-            services.AddApplicationServices();
-            services.AddIdentityServices(_config);
 
             services.AddHostedService<QueueReaderService>();
             services.AddSingleton<MessageHandlerRepository>();
             services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
             services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
-                   "account_exchange",
-                   ExchangeType.Topic,
-                   30000
-               ));
+                    "profile_exchange",
+                    ExchangeType.Topic,
+                    30000
+                ));
             services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
-                   "profile_exchange",
-                   "account_queue",
-                   "profile.*",
-                   ExchangeType.Topic));
+                    "account_exchange",
+                    "profile_queue",
+                    "account.*",
+                    ExchangeType.Topic));
 
-                    services.AddSwaggerDocumentation();
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
 
             services.AddCors(options =>
             {
@@ -72,7 +78,7 @@ namespace AuthenticationService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
 

@@ -9,6 +9,18 @@ services:
     networks:
       - network-name
 
+  #SQL Express Authentication
+  sql-express-authentication:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: 1Secure*Password1
+    container_name: sql-express-authentication
+    ports:
+      - 1433:1433
+    networks:
+      - network-name
+
   #Kwetter Frontend
   kwetter-frontend:
     build: ./kwetter-frontend
@@ -16,6 +28,37 @@ services:
     # env_file: .kf.env
     ports:
       - 3000:80
+    networks:
+      - network-name
+
+  #Profile Service
+  profile-service:
+    build: ./profile-service/ProfileService
+    container_name: profile-service
+    ports:
+      - 53231:80
+    networks:
+      - network-name
+  
+  #SQL Express Profile
+  sql-express-profile:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: 1Secure*Password1
+    container_name: sql-express-profile
+    ports:
+      - 1434:1434
+    networks:
+      - network-name
+  
+  #RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - network-name
 
