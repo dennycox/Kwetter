@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AuthenticationService from "../services/AuthenticationService";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Router from "next/router";
 
 function Login() {
     const [login, setLogin] = useState({ email: "", password: "" });
@@ -20,6 +21,7 @@ function Login() {
         localStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("UserId", res.data.id);
         setMessage("Login successful");
+        //Router.push("/home");
       })
       .catch((error) => {
         setMessage("Account information does not match");
