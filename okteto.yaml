@@ -1,2 +1,7 @@
+build:
+  profile:
+    context: profile-service/ProfileService
+    dockerfile: Dockerfile
 deploy:
+  - okteto build -t okteto.dev/profile:latest profile
   - kubectl apply -f ./kubernetes

@@ -17,7 +17,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: profile
-        image: dennycox/profile-service:latest
+        image: okteto.dev/profile:latest
         resources: {}
         ports:
           - containerPort: 80
