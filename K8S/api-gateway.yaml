@@ -12,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2 
 spec:
   rules:
-    - host: *
+    - host: kwetter-dennycox.cloud.okteto.net
     - http:
         paths:
           # Authentication Service 
