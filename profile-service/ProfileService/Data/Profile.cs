@@ -10,22 +10,22 @@ namespace ProfileService.Data
 
         }
 
-        public Profile(string userId, string profilePictureUrl, string profileName, string bio, string location, string website)
+        public Profile(string userId, string profilePictureUrl, string name, string bio, string location, string website)
         {
             UserId = userId;
             ProfilePictureUrl = profilePictureUrl;
-            Name = Name;
+            Name = name;
             Bio = bio;
             Location = location;
             Website = website;
         }
 
-        public Profile(Guid id, string userId, string profilePictureUrl, string profileName, string bio, string location, string website)
+        public Profile(Guid id, string userId, string profilePictureUrl, string name, string bio, string location, string website)
         {
             Id = id;
             UserId = userId;
             ProfilePictureUrl = profilePictureUrl;
-            Name = Name;
+            Name = name;
             Bio = bio;
             Location = location;
             Website = website;
