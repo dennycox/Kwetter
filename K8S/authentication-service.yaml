@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-service-deployment
+  labels:
+    app: authentication
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+      - name: authentication
+        image: dennycox/authentication-service:latest
+        resources: {}
+        ports:
+          - containerPort: 80
+        env:
+          - name: ASPNETCORE_ConnectionStrings:DefaultConnection
+            value: Server=sql-express-authentication,1433;Database=TransferData;User ID=SA;Password=1Secure*Password1;
+          - name: ASPNETCORE_ConnectionStrings:RabbitMqConnectionString
+            value: amqp://guest:guest@rabbitmq:5672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service
+spec:
+  selector:
+    app: authentication
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80 
