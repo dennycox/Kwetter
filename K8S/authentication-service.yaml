@@ -23,7 +23,7 @@ spec:
           - containerPort: 80
         env:
           - name: ASPNETCORE_ConnectionStrings:DefaultConnection
-            value: Server=sql-express-authentication,1433;Database=TransferData;User ID=SA;Password=1Secure*Password1;
+            value: Server=v4jdd6eb2or2.eu-central-2.psdb.cloud;Database=kwetter-db;user=xdsn7s6pxsft;password=pscale_pw_cjctX2f9bqo_9CIQSLJQ52Qw52kLu_jI5nVbPhlzPCg;SslMode=VerifyFull;
           - name: ASPNETCORE_ConnectionStrings:RabbitMqConnectionString
             value: amqp://guest:guest@rabbitmq:5672
 ---

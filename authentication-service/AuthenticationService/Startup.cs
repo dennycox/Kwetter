@@ -36,7 +36,7 @@ namespace AuthenticationService
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(_config.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8,0))));
 
             services.AddApplicationServices();
             services.AddIdentityServices(_config);
