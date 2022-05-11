@@ -76,9 +76,19 @@ namespace ProfileService.Data
             try
             {
                 var profile = await _profileRepository.GetProfileByUserIdAsync(userId);
-                return _mapper.Map<Profile, ProfileToReturnDto>(profile);
+                var dto = new ProfileToReturnDto()
+                {
+                    Name = profile.Name,
+                    ProfilePictureUrl = profile.ProfilePictureUrl,
+                    Bio = profile.Bio,
+                    Id = profile.Id,
+                    Location = profile.Location,
+                    Website = profile.Website
+                };
+
+                return dto;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 _logger.Log(LogLevel.Error, $"Failed to retrieve profile by user id: { userId }. At: { DateTime.Now }");
                 return null;

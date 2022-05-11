@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AuthenticationService.Data;
 using AuthenticationService.Dtos;
 using AuthenticationService.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +17,10 @@ namespace AuthenticationService.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
-        private readonly IMapper _mapper;
         private readonly IPublisher _publisher;
 
-        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, IPublisher publisher)
+        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IPublisher publisher)
         {
-            _mapper = mapper;
             _tokenService = tokenService;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -78,7 +75,8 @@ namespace AuthenticationService.Controllers
             {
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
-                Name = user.Name
+                Name = user.Name,
+                Id = user.Id
             };
         }
 
@@ -94,7 +92,7 @@ namespace AuthenticationService.Controllers
             {
                 Name = registerDto.Name,
                 Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.Email,
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);

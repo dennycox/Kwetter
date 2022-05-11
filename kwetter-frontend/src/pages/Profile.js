@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Banner from '../components/Banner'
 
 const Profile = props => {
-    const [username, setUsername] = useState(null)
+
     const initialProfileState = {
         id: "",
         userId: "",
@@ -28,12 +28,8 @@ const Profile = props => {
     };
 
     useEffect(() => {
-        setUsername(window.location.pathname.split("/")[2]);
-    }, [])
-
-    useEffect(() => {
-        getUser();
-      }, [username]);
+        getUser(sessionStorage.getItem("UserId"));
+      }, []);
 
     return (
         <Container className="pt-3">
