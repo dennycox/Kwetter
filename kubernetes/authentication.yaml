@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: profile-service-deployment
+  name: authentication-deployment
   labels:
-    app: profile
+    app: authentication
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: profile
+      app: authentication
   template:
     metadata:
       labels:
-        app: profile
+        app: authentication
     spec:
       restartPolicy: Always
       containers:
-      - name: profile
-        image: dennycox/profile-service:latest
+      - name: authentication
+        image: dennycox/authentication-service:latest
         resources: {}
         ports:
           - containerPort: 80
@@ -30,10 +30,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: profile-service
+  name: authentication-service
 spec:
   selector:
-    app: profile
+    app: authentication
   ports:
     - protocol: TCP
       port: 80
