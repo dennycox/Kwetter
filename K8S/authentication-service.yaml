@@ -14,6 +14,7 @@ spec:
       labels:
         app: authentication
     spec:
+      restartPolicy: Always
       containers:
       - name: authentication
         image: dennycox/authentication-service:latest
