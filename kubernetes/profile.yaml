@@ -30,14 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: profile
   name: profile-service
 spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
   selector:
     app: profile
-  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80 

@@ -30,14 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: authentication
   name: authentication-service
 spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
   selector:
     app: authentication
-  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80 
