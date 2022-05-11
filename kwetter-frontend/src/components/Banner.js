@@ -13,7 +13,7 @@ const Banner = () => {
         token != null ? setLoginStatus(true) : setLoginStatus(false);
         if (token != null) {
           let decoded = jwt_decode(token);
-          setCurrentUser(decoded.unique_name);
+          setCurrentUser(decoded.given_name);
         } else {
           setCurrentUser("");
         }
