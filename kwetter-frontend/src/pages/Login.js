@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AuthenticationService from "../services/AuthenticationService";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Router from "next/router";
 
 function Login() {
     const [login, setLogin] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
+    const Navigate = useHistory();
 
   const handleChange = (event) => {
     setLogin({ ...login, [event.target.name]: event.target.value });
@@ -21,7 +21,7 @@ function Login() {
         localStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("UserId", res.data.id);
         setMessage("Login successful");
-        //Router.push("/home");
+        Navigate.push("/home");
       })
       .catch((error) => {
         setMessage("Account information does not match");

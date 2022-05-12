@@ -2,11 +2,13 @@ import { Navbar, Nav, Container, NavDropdown, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import { useHistory } from 'react-router-dom';
 
 const Banner = () => {
 
     const [CurrentUser, setCurrentUser] = useState("");
     const [LoginStatus, setLoginStatus] = useState(false);
+    const Navigate = useHistory();
 
     useEffect(() => {
         const token = localStorage.getItem("Token");
@@ -23,12 +25,13 @@ const Banner = () => {
         localStorage.removeItem("Token");
         setLoginStatus(false);
         setCurrentUser("");
+        Navigate.push("/");
     };
 
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/">
+                <Navbar.Brand href="/home">
                     <h2>Kwetter</h2>
                 </Navbar.Brand>
                 <Nav className="ml-auto">

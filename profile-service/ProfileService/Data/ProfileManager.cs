@@ -62,7 +62,17 @@ namespace ProfileService.Data
             try
             {
                 var profile = await _profileRepository.GetProfileByIdAsync(id);
-                return _mapper.Map<Profile, ProfileToReturnDto>(profile);
+                var returnDto = new ProfileToReturnDto()
+                {
+                    Name = profile.Name,
+                    ProfilePictureUrl = profile.ProfilePictureUrl,
+                    Bio = profile.Bio,
+                    Id = profile.Id,
+                    Location = profile.Location,
+                    Website = profile.Website
+                };
+
+                return returnDto;
             }
             catch (Exception)
             {
@@ -76,7 +86,7 @@ namespace ProfileService.Data
             try
             {
                 var profile = await _profileRepository.GetProfileByUserIdAsync(userId);
-                var dto = new ProfileToReturnDto()
+                var returnDto = new ProfileToReturnDto()
                 {
                     Name = profile.Name,
                     ProfilePictureUrl = profile.ProfilePictureUrl,
@@ -86,7 +96,7 @@ namespace ProfileService.Data
                     Website = profile.Website
                 };
 
-                return dto;
+                return returnDto;
             }
             catch (Exception)
             {
@@ -103,7 +113,17 @@ namespace ProfileService.Data
                 var updatedProfile = await _profileRepository.UpdateProfileAsync(profileId, profile);
                 if (updatedProfile == null) return null;                
                 _publisher.Publish(JsonConvert.SerializeObject(updatedProfile), "profile.update", null);
-                return _mapper.Map<Profile, ProfileToReturnDto>(updatedProfile);
+                var returnDto = new ProfileToReturnDto()
+                {
+                    Name = updatedProfile.Name,
+                    ProfilePictureUrl = updatedProfile.ProfilePictureUrl,
+                    Bio = updatedProfile.Bio,
+                    Id = updatedProfile.Id,
+                    Location = updatedProfile.Location,
+                    Website = updatedProfile.Website
+                };
+
+                return returnDto;
             }
             catch(Exception)
             {

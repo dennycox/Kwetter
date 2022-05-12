@@ -14,7 +14,8 @@ const httpdefault = () => {
 const httptoken = () => {
   const token = localStorage.getItem("Token");
   return axios.create({
-    baseURL: url + "/api",
+    //baseURL: url + "/api",
+    baseURL: "http://localhost:53231/api",
     headers: {
       "Content-type": "application/json",
       Authorization: `Bearer ${token}`,

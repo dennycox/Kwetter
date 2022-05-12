@@ -8,7 +8,6 @@ const Profile = props => {
 
     const initialProfileState = {
         id: "",
-        userId: "",
         profilePictureUrl: "",
         name: "",
         bio: "",
@@ -34,7 +33,14 @@ const Profile = props => {
     return (
         <Container className="pt-3">
             <Banner />
-            <h3>{currentProfile.name}</h3>
+            <h4><b>Name</b></h4>
+            <h4>{currentProfile.name}</h4>
+            <h4><b>Bio</b></h4>
+            <h4>{currentProfile.bio}</h4>
+            <h4><b>Location</b></h4>
+            <h4>{currentProfile.location}</h4>
+            <h4><b>Website</b></h4>
+            <h4>{currentProfile.website}</h4>
         </Container>
     )
 }

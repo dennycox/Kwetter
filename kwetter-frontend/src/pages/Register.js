@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthenticationService from "../services/AuthenticationService";
 
@@ -18,6 +18,7 @@ function Register() {
       const [messageName, setMessagename] = useState([]);
       const [messageEmail, setMessageEmail] = useState([]);
       const [confirmPassword, setConfirmPassword] = useState("");
+      const Navigate = useHistory();
     
       const handleChange = (event) => {
         setRegister({ ...register, [event.target.name]: event.target.value });
@@ -107,6 +108,7 @@ function Register() {
         AuthenticationService.register(register)
           .then((res) => {
             setMessage("Account created");
+            Navigate.push("/login");
           })
           .catch((error) => {
             setMessage("Something went wrong, try again in a few minutes ...");
