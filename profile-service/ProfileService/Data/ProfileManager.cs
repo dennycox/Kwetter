@@ -128,7 +128,7 @@ namespace ProfileService.Data
             catch(Exception)
             {
                 _logger.Log(LogLevel.Error, $"Failed to update profile with id: { profileId }. At: { DateTime.Now }");
-                return null; 
+                return null;
             }
         }
     }
