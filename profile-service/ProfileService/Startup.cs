@@ -43,7 +43,7 @@ namespace ProfileService
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(_config.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0))));
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
 
 
             services.AddHostedService<QueueReaderService>();

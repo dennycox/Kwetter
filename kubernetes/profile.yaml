@@ -20,7 +20,7 @@ spec:
         image: dennycox/profile-service:latest
         env:
         - name: 'ASPNETCORE_ConnectionStrings__DefaultConnection'
-          value: 'Server=v4jdd6eb2or2.eu-central-2.psdb.cloud;Database=kwetter-db;user=23s7jh5cbg4m;password=pscale_pw_QUr79DimJH30dWzZhtiT0ncjBfXUu7wxpPQ3OlrotXY;SslMode=VerifyFull;'
+          value: 'Server=tcp:kwetter-i4034511.database.windows.net,1433;Initial Catalog=profile-service-db-test;Persist Security Info=False;User ID=admin-denny;Password=Password-1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
         - name: 'ASPNETCORE_ConnectionStrings__RabbitMqConnectionString'
           value: 'amqp://guest:guest@rabbitmq:5672'
         resources: {}

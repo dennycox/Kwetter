@@ -28,7 +28,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.15" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +51,8 @@
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.Relational" />
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
+    <None Remove="Migrations\" />
+    <None Remove="Migrations\20220502141631_InitialCreate.Designer" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -60,5 +61,6 @@
     <Folder Include="Extensions\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Messaging\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
