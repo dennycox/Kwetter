@@ -82,7 +82,7 @@ namespace ProfileService
         {
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+            app.UseStatusCodePagesWithReExecute("/errors/{0}"); 
 
             //app.UseHttpsRedirection();
 
