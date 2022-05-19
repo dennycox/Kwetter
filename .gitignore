@@ -516,7 +516,6 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
 
 env-config.js
