@@ -25,12 +25,15 @@ jobs:
           
       - name: Install dependencies
         run: dotnet restore
+        working-directory: authentication-service
         
       - name: Build
         run: dotnet build
+        working-directory: authentication-service
         
       - name: Test
         run: dotnet test
+        working-directory: authentication-service
         
       - name: Set up Docker Buildx
         id: buildx
