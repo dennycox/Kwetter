@@ -18,22 +18,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Setup .NET Core
+      - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
+          dotnet-version: 5.0
           
       - name: Install dependencies
-        run: dotnet restore AuthenticationService.sln
-        working-directory: authentication-service
+        run: dotnet restore
         
       - name: Build
-        run: dotnet build AuthenticationService.sln --configuration Release --no-restore
-        working-directory: authentication-service
+        run: dotnet build
         
       - name: Test
-        run: dotnet test AuthenticationService.sln --no-restore --verbosity normal
-        working-directory: authentication-service
+        run: dotnet test
         
       - name: Set up Docker Buildx
         id: buildx
