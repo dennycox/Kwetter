@@ -7,17 +7,34 @@ on:
     paths: 'authentication-service/**'
 
 jobs:
-  # define job to build and publish docker image
-  build-and-push-docker-image:
-    name: Build Docker image and push to repository
+  build-test-and-push-image:
+    name: Build and test image and push to cloud
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
     # steps to perform in job
     steps:
+      
       - name: Checkout code
         uses: actions/checkout@v2
-
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+          
+      - name: Install dependencies
+        run: dotnet restore AuthenticationService.sln
+        working-directory: authentication-service
+        
+      - name: Build
+        run: dotnet build AuthenticationService.sln --configuration Release --no-restore
+        working-directory: authentication-service
+        
+      - name: Test
+        run: dotnet test AuthenticationService.sln --no-restore --verbosity normal
+        working-directory: authentication-service
+        
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
