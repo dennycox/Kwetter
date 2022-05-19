@@ -17,6 +17,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: profile
+        imagePullPolicy: Always
         image: dennycox/profile-service:latest
         env:
         - name: 'ASPNETCORE_ConnectionStrings__DefaultConnection'
