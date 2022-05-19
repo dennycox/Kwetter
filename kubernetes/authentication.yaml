@@ -17,6 +17,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: authentication
+        imagePullPolicy: Always
         image: dennycox/authentication-service:latest
         resources: {}
         ports:
