@@ -7,16 +7,33 @@ on:
     paths: 'profile-service/**'
 
 jobs:
-  # define job to build and publish docker image
-  build-and-push-docker-image:
-    name: Build Docker image and push to repository
+  build-test-and-push-image:
+    name: Build and test image and push to cloud
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
     # steps to perform in job
     steps:
+      
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+          
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: profile-service
+        
+      - name: Build
+        run: dotnet build
+        working-directory: profile-service
+        
+      - name: Test
+        run: dotnet test
+        working-directory: profile-service
 
       - name: Set up Docker Buildx
         id: buildx
