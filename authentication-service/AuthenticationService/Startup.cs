@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using AuthenticationService.Messaging;
 using AuthenticationService.Interfaces;
 using RabbitMQ.Client;
+using Microsoft.Extensions.Hosting;
 
 namespace AuthenticationService
 {
@@ -35,26 +36,32 @@ namespace AuthenticationService
         {
             services.AddControllers();
             
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            if (_hosting.IsEnvironment("Testing"))
+            {
+                services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(databaseName: "authentication-service-identity-test-db"));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+                services.AddHostedService<QueueReaderService>();
+                services.AddSingleton<MessageHandlerRepository>();
+                services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
+                services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
+                       "account_exchange",
+                       ExchangeType.Topic,
+                       30000
+                   ));
+                services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
+                       "profile_exchange",
+                       "account_queue",
+                       "profile.*",
+                       ExchangeType.Topic));
+            }
 
             services.AddApplicationServices();
             services.AddIdentityServices(_config);
 
-            services.AddHostedService<QueueReaderService>();
-            services.AddSingleton<MessageHandlerRepository>();
-            services.AddSingleton<IConnectionProvider>(new RabbitMqConnection(_config.GetConnectionString("RabbitMqConnectionString")));
-            services.AddScoped<IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
-                   "account_exchange",
-                   ExchangeType.Topic,
-                   30000
-               ));
-            services.AddTransient<ISubscriber>(x => new Subscriber(x.GetService<IConnectionProvider>(),
-                   "profile_exchange",
-                   "account_queue",
-                   "profile.*",
-                   ExchangeType.Topic));
-
-                    services.AddSwaggerDocumentation();
+            services.AddSwaggerDocumentation();
 
             services.AddCors(options =>
             {
